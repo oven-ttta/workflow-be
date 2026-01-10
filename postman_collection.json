@@ -1,0 +1,467 @@
+{
+  "info": {
+    "name": "Student Part-time Management API",
+    "description": "API Collection for Student Part-time Management System",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080/api",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"สมชาย\",\n  \"yearLevel\": \"ปี 3\",\n  \"specialty\": \"Backend\",\n  \"username\": \"somchai\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"somchai\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "login"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Student",
+      "item": [
+        {
+          "name": "Get Profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/student/profile",
+              "host": ["{{baseUrl}}"],
+              "path": ["student", "profile"]
+            }
+          }
+        },
+        {
+          "name": "Update Profile",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"สมชาย\",\n  \"yearLevel\": \"ปี 4\",\n  \"specialty\": \"Backend\",\n  \"username\": \"somchai\",\n  \"password\": \"newpassword123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/student/profile",
+              "host": ["{{baseUrl}}"],
+              "path": ["student", "profile"]
+            }
+          }
+        },
+        {
+          "name": "Upload Timetable",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": ""
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/student/timetable/upload",
+              "host": ["{{baseUrl}}"],
+              "path": ["student", "timetable", "upload"]
+            }
+          }
+        },
+        {
+          "name": "Get Timetable",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/student/timetable",
+              "host": ["{{baseUrl}}"],
+              "path": ["student", "timetable"]
+            }
+          }
+        },
+        {
+          "name": "Get My Projects",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/student/projects",
+              "host": ["{{baseUrl}}"],
+              "path": ["student", "projects"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "PM",
+      "item": [
+        {
+          "name": "Get Managed Projects",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/pm/projects",
+              "host": ["{{baseUrl}}"],
+              "path": ["pm", "projects"]
+            }
+          }
+        },
+        {
+          "name": "Get Project Details",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/pm/projects/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["pm", "projects", "1"]
+            }
+          }
+        },
+        {
+          "name": "Add Member to Project",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/pm/projects/1/members/2",
+              "host": ["{{baseUrl}}"],
+              "path": ["pm", "projects", "1", "members", "2"]
+            }
+          }
+        },
+        {
+          "name": "Remove Member from Project",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/pm/projects/1/members/2",
+              "host": ["{{baseUrl}}"],
+              "path": ["pm", "projects", "1", "members", "2"]
+            }
+          }
+        },
+        {
+          "name": "Update Project Status",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/pm/projects/1/status?status=IN_PROCESS",
+              "host": ["{{baseUrl}}"],
+              "path": ["pm", "projects", "1", "status"],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "IN_PROCESS"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Available Students",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/pm/students",
+              "host": ["{{baseUrl}}"],
+              "path": ["pm", "students"]
+            }
+          }
+        },
+        {
+          "name": "Get Students by Specialty",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/pm/students/specialty/Backend",
+              "host": ["{{baseUrl}}"],
+              "path": ["pm", "students", "specialty", "Backend"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin",
+      "item": [
+        {
+          "name": "Get All Users",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/users",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "users"]
+            }
+          }
+        },
+        {
+          "name": "Create Project",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"projectName\": \"E-Commerce Website\",\n  \"difficultyLevel\": 4,\n  \"durationDays\": 30,\n  \"pmUserId\": 2,\n  \"startDate\": \"2025-01-01\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/admin/projects",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "projects"]
+            }
+          }
+        },
+        {
+          "name": "Get All Projects",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/projects",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "projects"]
+            }
+          }
+        },
+        {
+          "name": "Get Project Status Overview",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/projects/status/overview",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "projects", "status", "overview"]
+            }
+          }
+        },
+        {
+          "name": "Get Projects Due Soon",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/projects/due-soon?days=7",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "projects", "due-soon"],
+              "query": [
+                {
+                  "key": "days",
+                  "value": "7"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Overdue Projects",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/projects/overdue",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "projects", "overdue"]
+            }
+          }
+        },
+        {
+          "name": "Get Projects Needing Help",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/projects/help",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "projects", "help"]
+            }
+          }
+        },
+        {
+          "name": "Update User Role",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/users/2/role?role=PM",
+              "host": ["{{baseUrl}}"],
+              "path": ["admin", "users", "2", "role"],
+              "query": [
+                {
+                  "key": "role",
+                  "value": "PM"
+                }
+              ]
+            }   
+          }
+        }
+      ]
+    }
+  ]
+}
