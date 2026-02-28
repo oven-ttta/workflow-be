@@ -480,7 +480,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     // เรียงตามชื่อ (A-Z)
     List<User> findAllByOrderByFirstNameAsc();
-
+    
     // เรียงตามชื่อ (Z-A)
     List<User> findAllByOrderByFirstNameDesc();
 
