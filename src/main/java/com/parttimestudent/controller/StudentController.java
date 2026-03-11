@@ -65,6 +65,31 @@ public class StudentController {
         TimetableResponse response = timetableService.getUserTimetableResponse(user.getId());
         return ResponseEntity.ok(response);
     }
+
+    /**
+     * แก้ไขตารางเรียนของนักเรียน (เขียนทับทั้งชุด)
+     * รูปแบบ payload ใช้โครงสร้างเดียวกับ TimetableResponse:
+     * {
+     *   "slots": [
+     *     {
+     *       "dayOfWeek": "Monday",
+     *       "startTime": "09:00",
+     *       "endTime": "10:00",
+     *       "subject": "Math",
+     *       "isFree": false
+     *     }
+     *   ]
+     * }
+     */
+    @PutMapping("/timetable")
+    public ResponseEntity<TimetableResponse> updateTimetable(
+            Authentication authentication,
+            @RequestBody TimetableResponse request
+    ) {
+        User user = userService.getUserByUsername(authentication.getName());
+        TimetableResponse updated = timetableService.updateTimetable(user.getId(), request);
+        return ResponseEntity.ok(updated);
+    }
     
     @GetMapping("/projects")
     public ResponseEntity<List<ProjectResponse>> getMyProjects(Authentication authentication) {

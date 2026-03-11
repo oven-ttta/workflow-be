@@ -29,10 +29,20 @@ public class TimetableService {
     
     @Transactional
     public TimetableResponse uploadTimetable(Long userId, MultipartFile file) throws IOException {
-        User user = userService.getUserById(userId);
-        
         // Extract timetable from image using Gemini
         TimetableResponse timetableResponse = geminiService.extractTimetableFromImage(file);
+        
+        // Persist extracted slots and return the latest timetable
+        return saveTimetableFromResponse(userId, timetableResponse);
+    }
+
+    /**
+     * ใช้ร่วมกันทั้งตอนอัปโหลดจากรูป และตอนแก้ไขตารางเรียนแบบ manual
+     * ลบ slot เดิมของ user แล้วบันทึก slot ใหม่ทั้งหมดตามข้อมูลใน TimetableResponse
+     */
+    @Transactional
+    public TimetableResponse saveTimetableFromResponse(Long userId, TimetableResponse timetableResponse) {
+        User user = userService.getUserById(userId);
         
         // Delete existing timetable slots for this user
         timetableSlotRepository.deleteByUserId(userId);
@@ -52,7 +62,17 @@ public class TimetableService {
             timetableSlotRepository.save(timetableSlot);
         }
         
-        return timetableResponse;
+        // ดึงข้อมูลล่าสุดจากฐานข้อมูลกลับมาเป็น response มาตรฐาน
+        return getUserTimetableResponse(userId);
+    }
+
+    /**
+     * แก้ไขตารางเรียนของ user โดยรับข้อมูล slot ใหม่ทั้งหมดจาก client
+     * แล้วเขียนทับของเดิม (ใช้โครงสร้างเดียวกับ TimetableResponse)
+     */
+    @Transactional
+    public TimetableResponse updateTimetable(Long userId, TimetableResponse updatedTimetable) {
+        return saveTimetableFromResponse(userId, updatedTimetable);
     }
     
     public List<TimetableSlot> getUserTimetable(Long userId) {
